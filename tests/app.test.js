@@ -6,7 +6,7 @@ const data = require('./data');
 jest.mock("../services/crawler")
 
 describe('Web Crawler', () => {
-
+    // sad path
     test('should get back 404 status - ', async () => {
         const response = await request(app)
         .get('/')
@@ -14,6 +14,7 @@ describe('Web Crawler', () => {
         expect(response.status).toBe(400)
     })
 
+    // sad path
     test('should get back 400 status - when url is not absolute', async () => {
         const response = await request(app)
         .get('/')
@@ -23,6 +24,7 @@ describe('Web Crawler', () => {
         expect(response.text).toBe('send absolute url with protocol included')
     })
     
+    // happy  path
     test('should get back html content', async () => {
         crawler.getContent.mockResolvedValueOnce(Promise.resolve(data.content))
         const response = await request(app)
